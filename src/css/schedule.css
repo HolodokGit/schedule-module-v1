@@ -1,6 +1,3 @@
-@import url('./reset.css');
-@import url('./variables.css');
-
 /* ШРИФТЫ ДЛЯ ВИДА! УДАЛИТЬ!*/
 
 @font-face {
@@ -39,7 +36,7 @@
     font-size: var(--sched-font-size-base);
     line-height: var(--sched-line-height);
     color: var(--sched-text);
-    background-color: var(--sched-color-bg);
+    background-color: var(--sched-bg);
 
     color-scheme: light;
 }
@@ -54,4 +51,34 @@
     line-height: 1.2;
     color: var(--sched-text);
     letter-spacing: -0.02em;
+}
+
+.sched-types {
+    display: inline-flex;
+    gap: var(--sched-space-xs);
+    padding: var(--sched-space-xs);
+    background-color: var(--sched-bg-soft);
+    border-radius: var(--sched-radius-md);
+
+}
+
+.sched-type {
+    padding: var(--sched-space-sm) var(--sched-space-lg);
+    border-radius: var(--sched-radius-sm);
+    font-size: var(--sched-font-size-sm);
+    font-weight: var(--sched-font-weight-medium);
+    color: var(--sched-text-muted);
+    user-select: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.sched-type:hover {
+    color: var(--sched-text);
+}
+
+.sched-type.is-active {
+    background-color: var(--sched-bg);
+    color: var(--sched-accent);
+    box-shadow: var(--sched-shadow);
 }
