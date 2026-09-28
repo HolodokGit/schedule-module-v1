@@ -33,5 +33,13 @@
     width: 100%;
     max-width: 960px; 
     margin: 0 auto;
+    padding: var(--sched-space-lg);
+
     font-family: var(--sched-font-family);
+    font-size: var(--sched-font-size-base);
+    line-height: var(--sched-line-height);
+    color: var(--sched-color-text);
+    background-color: var(--sched-color-bg);
+
+    color-scheme: light;
 }
