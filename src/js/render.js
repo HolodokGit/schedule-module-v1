@@ -19,3 +19,19 @@ function renderTypes() {
 }
 
 renderTypes();
+
+function renderList() {
+    const container = document.querySelector('[data-slot="list"]');
+
+    container.innerHTML = '';
+
+    GROUPS.forEach(group => {
+        const el = document.createElement('div');
+        el.className = 'sched-item';
+        el.dataset.id = group.id;
+        el.textContent = group.name;
+        container.appendChild(el);
+    });
+}
+
+renderList();

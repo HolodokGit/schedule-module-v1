@@ -55,8 +55,3 @@ const SCHEDULE = [
         room: 312,
     }
 ];
-
-console.log(SCHEDULE);
-console.log(GROUPS);
-console.log(TEACHERS);
-console.log(state);
