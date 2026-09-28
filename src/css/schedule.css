@@ -38,8 +38,20 @@
     font-family: var(--sched-font-family);
     font-size: var(--sched-font-size-base);
     line-height: var(--sched-line-height);
-    color: var(--sched-color-text);
+    color: var(--sched-text);
     background-color: var(--sched-color-bg);
 
     color-scheme: light;
+}
+
+.sched-header {
+    margin-bottom: var(--sched-space-lg);
+}
+
+.sched-title {
+    font-size: var(--sched-font-size-xl);
+    font-weight: var(--sched-font-weight-bold);
+    line-height: 1.2;
+    color: var(--sched-text);
+    letter-spacing: -0.02em;
 }
