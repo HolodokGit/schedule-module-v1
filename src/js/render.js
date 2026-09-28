@@ -50,7 +50,7 @@ function renderList() {
         section.className = 'sched-course';
 
         const title = document.createElement('div');
-        title.className = 'schedule-course-title';
+        title.className = 'sched-course-title';
         title.textContent = `${course} курс`;
         section.appendChild(title);
 
@@ -60,6 +60,9 @@ function renderList() {
         byCourse[course].forEach(item => {
             const el = document.createElement('div');
             el.className = 'sched-item';
+            if(state.selectedId === item.id) {
+                el.classList.add('is-active');
+            }
             el.dataset.id = item.id;
             el.textContent = item.name;
             grid.appendChild(el);
@@ -78,6 +81,9 @@ function renderFlatList(container, items) {
     items.forEach(item => {
         const el = document.createElement('div');
         el.className = 'sched-item';
+        if(state.selectedId === item.id) {
+            el.classList.add('is-active');
+        }
         el.dataset.id = item.id;
         el.textContent = item.name;
         grid.appendChild(el);
@@ -96,24 +102,29 @@ function initTypeClicks() {
         if(!el) return;
 
         state.type = el.dataset.type;
+        state.selectedId = null;
+        state.activeDay = 'mon';
         renderList();
         renderTypes();
+        renderSchedule();
     })
 }
 
 initTypeClicks();
 
+// Рендер дней недели и самого расписания
 function renderSchedule() {
     const container = document.querySelector('[data-slot="schedule"]');
 
     container.innerHTML = '';
 
-    if(!state.selectId) return;
+    if(!state.selectedId) return;
 
     renderDayTabs(container);
     renderCards(container);
 }
 
+// Функция для дней недели
 function renderDayTabs(container) {
     const DAYS = [
         { id: 'mon', name: 'Пн'},
@@ -141,13 +152,14 @@ function renderDayTabs(container) {
     container.appendChild(tabs);
 }
 
+// Функция для карточек расписания
 function renderCards(container) {
     let items = SCHEDULE.filter(item => item.day === state.activeDay);
 
     if(state.type === 'group') {
-        items = items.filter(item => item.groupId === state.selectId);
+        items = items.filter(item => item.groupId === state.selectedId);
     } else {
-        items = items.filter(item => item.teacherId === state.selectId);
+        items = items.filter(item => item.teacherId === state.selectedId);
     }
 
     items.sort((a, b) => a.blockOrder - b.blockOrder);
@@ -161,6 +173,7 @@ function renderCards(container) {
         empty.textContent = 'Нет занятий';
         cards.appendChild(empty);
         container.appendChild(cards);
+        return;
     }
 
     items.forEach(item => {
@@ -170,10 +183,10 @@ function renderCards(container) {
 
         card.innerHTML = `
         <div class="sched-card-head">
-            <span class="sched-card-pair">${item.blockLabel} </span>
-            <span class="sched-card-pair">${item.time} пара</span>
+            <span class="sched-card-time">${item.blockLabel} </span>
+            <span class="sched-card-time">${item.time}</span>
         </div>
-        <h3 class="sched-card.subject">${item.subject}</h3>
+        <h3 class="sched-card-subject">${item.subject}</h3>
         <p class="sched-card-meta">ауд. ${item.room}</p>
         `;
 
@@ -182,6 +195,7 @@ function renderCards(container) {
     container.appendChild(cards);
 }
 
+// Событие onclick на группе
 function initListClick() {
     const container = document.querySelector('[data-slot="list"]');
 
@@ -189,14 +203,16 @@ function initListClick() {
         const el = event.target.closest('.sched-item');
         if(!el) return;
 
-        state.selectId = el.dataset.id;
+        state.selectedId = el.dataset.id;
         state.activeDay = 'mon';
+        renderList();
         renderSchedule();
     });
 }
 
 initListClick();
 
+// Событие onclick на дне недели
 function initDayClick() {
     const container = document.querySelector('[data-slot="schedule"]');
 
