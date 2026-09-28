@@ -82,3 +82,55 @@
     color: var(--sched-accent);
     box-shadow: var(--sched-shadow);
 }
+
+.sched-list {
+    margin-bottom: var(--sched-space-lg);
+}
+
+.sched-course {
+    margin-bottom: var(--sched-space-lg);
+}
+
+.sched-course:last-child {
+    margin-bottom: 0;
+}
+
+.sched-course-title {
+    font-size: var(--sched-font-size-sm);
+    font-weight: var(--sched-font-weight-bold);
+    color: var(--sched-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--sched-space-sm);
+}
+
+.sched-course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: var(--sched-space-sm);
+}
+
+.sched-item {
+    padding: var(--sched-space-sm) var(--sched-space-md);
+    border: 1px solid var(--sched-border);
+    border-radius: var(--sched-radius-sm);
+    font-size: var(--sched-font-size-sm);
+    font-weight: var(--sched-font-weight-medium);
+    color: var(--sched-text);
+    background-color: var(--sched-bg);
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.sched-item:hover {
+    border-color: var(--sched-accent);
+    color: var(--sched-accent);
+}
+
+.sched-item.is-active {
+    background-color: var(--sched-accent);
+    border-color: var(--sched-accent);
+    color: #fff;
+}
