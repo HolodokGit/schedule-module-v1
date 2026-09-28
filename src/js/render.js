@@ -25,11 +25,13 @@ function renderList() {
 
     container.innerHTML = '';
 
-    GROUPS.forEach(group => {
+    const items = state.type === 'group' ? GROUPS : TEACHERS;
+
+    items.forEach(item => {
         const el = document.createElement('div');
         el.className = 'sched-item';
-        el.dataset.id = group.id;
-        el.textContent = group.name;
+        el.dataset.id = item.id;
+        el.textContent = item.name;
         container.appendChild(el);
     });
 }

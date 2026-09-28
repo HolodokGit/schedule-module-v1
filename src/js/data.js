@@ -1,7 +1,7 @@
 "use strict"
 
 const state = {
-    type: null,
+    type: 'group',
     selectId: null,
     activeDay: 'mon',
 }
