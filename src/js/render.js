@@ -12,6 +12,9 @@ function renderTypes() {
     types.forEach(type => {
         const el = document.createElement('div');
         el.className = 'sched-type';
+        if(state.type === type.id) {
+            el.classList.add('is-active');
+        }
         el.dataset.type = type.id;
         el.textContent = type.name;
         container.appendChild(el);
@@ -37,3 +40,18 @@ function renderList() {
 }
 
 renderList();
+
+function initTypeClicks() {
+    const container = document.querySelector('[data-slot="types"]');
+
+    container.addEventListener('click', (event) => {
+        const el = event.target.closest('.sched-type');
+        if(!el) return;
+
+        state.type = el.dataset.type;
+        renderList();
+        renderTypes();
+    })
+}
+
+initTypeClicks();
