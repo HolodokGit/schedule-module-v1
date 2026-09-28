@@ -103,7 +103,7 @@ function renderCards(container) {
         items = items.filter(item => item.teacherId === state.selectId);
     }
 
-    items.sort((a, b) => a.pair - b.pair);
+    items.sort((a, b) => a.blockOrder - b.blockOrder);
 
     const cards = document.createElement('div');
     cards.className = 'sched-cards';
@@ -123,7 +123,7 @@ function renderCards(container) {
 
         card.innerHTML = `
         <div class="sched-card-head">
-            <span class="sched-card-pair">${item.pair} пара</span>
+            <span class="sched-card-pair">${item.pair} </span>
             <span class="sched-card-pair">${item.time} пара</span>
         </div>
         <h3 class="sched-card.subject">${item.subject}</h3>
