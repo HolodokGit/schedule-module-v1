@@ -78,11 +78,11 @@ function renderDayTabs(container) {
     ];
 
     const tabs = document.createElement('div');
-    tabs.className = 'shed-tabs';
+    tabs.className = 'sched-tabs';
 
     DAYS.forEach(day => {
         const tab = document.createElement('div');
-        tab.className = 'shed-tab';
+        tab.className = 'sched-tab';
 
         if(state.activeDay === day.id) {
             tab.classList.add('is-active');
@@ -122,7 +122,7 @@ function renderCards(container) {
         card.dataset.subject = item.subject;
 
         card.innerHTML = `
-        <div class="shed-card-head">
+        <div class="sched-card-head">
             <span class="sched-card-pair">${item.pair} пара</span>
             <span class="sched-card-pair">${item.time} пара</span>
         </div>
@@ -149,3 +149,17 @@ function initListClick() {
 }
 
 initListClick();
+
+function initDayClick() {
+    const container = document.querySelector('[data-slot="schedule"]');
+
+    container.addEventListener('click', (event) => {
+        const el = event.target.closest('.sched-tab');
+        if(!el) return;
+
+        state.activeDay = el.dataset.day;
+        renderSchedule();
+    });
+}
+
+initDayClick();

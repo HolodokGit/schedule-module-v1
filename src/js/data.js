@@ -28,7 +28,7 @@ const SCHEDULE = [
         room: 312,
     },
     {
-       groupId: '11-i',
+        groupId: '11-i',
         teacherId: 'petrov',
         day: 'mon',
         pair: 2,
