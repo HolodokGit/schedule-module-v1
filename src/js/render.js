@@ -1,5 +1,6 @@
 "use strict"
 
+// Рендер разделов Группы и Преподавателей
 function renderTypes() {
     const container = document.querySelector('[data-slot="types"]');
     container.innerHTML = '';
@@ -23,6 +24,7 @@ function renderTypes() {
 
 renderTypes();
 
+// Рендер Групп(с разбивкой по курсам) и преподавателей(которые запускают свою функцию)
 function renderList() {
     const container = document.querySelector('[data-slot="list"]');
 
@@ -30,17 +32,62 @@ function renderList() {
 
     const items = state.type === 'group' ? GROUPS : TEACHERS;
 
+    if(state.type === 'teacher') {
+        renderFlatList(container, items);
+        return;
+    }
+
+    const byCourse = {};
+    items.forEach(item => {
+        if(!byCourse[item.course]) byCourse[item.course] = [];
+        byCourse[item.course].push(item);
+    });
+
+    const courses = Object.keys(byCourse).sort((a, b) => a - b);
+
+    courses.forEach(course => {
+        const section = document.createElement('div');
+        section.className = 'sched-course';
+
+        const title = document.createElement('div');
+        title.className = 'schedule-course-title';
+        title.textContent = `${course} курс`;
+        section.appendChild(title);
+
+        const grid = document.createElement('div');
+        grid.className = 'sched-course-grid';
+
+        byCourse[course].forEach(item => {
+            const el = document.createElement('div');
+            el.className = 'sched-item';
+            el.dataset.id = item.id;
+            el.textContent = item.name;
+            grid.appendChild(el);
+        });
+
+        section.appendChild(grid);
+        container.appendChild(section);
+    });
+}
+
+// Рендер преподавателей
+function renderFlatList(container, items) {
+    const grid = document.createElement('div');
+    grid.className = 'sched-course-grid';
+
     items.forEach(item => {
         const el = document.createElement('div');
         el.className = 'sched-item';
         el.dataset.id = item.id;
         el.textContent = item.name;
-        container.appendChild(el);
-    });
+        grid.appendChild(el);
+    })
+    container.appendChild(grid);
 }
 
 renderList();
 
+// Событие onclick запускающее функции рендера Групп и Преподаватедлей
 function initTypeClicks() {
     const container = document.querySelector('[data-slot="types"]');
 

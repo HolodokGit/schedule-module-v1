@@ -7,9 +7,9 @@ const state = {
 }
 
 const GROUPS = [
-    { id: '11-i', name: '11-И' },
-    { id: '21-i', name: '21-И' },
-    { id: '31-i', name: '31-И' }
+    { id: '11-i', name: '11-И', course: 1 },
+    { id: '21-i', name: '21-И', course: 2 },
+    { id: '31-i', name: '31-И', course: 3 }
 ];
 
 const TEACHERS = [
