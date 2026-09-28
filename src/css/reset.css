@@ -1,0 +1,31 @@
+.sched-root,
+.sched-root *,
+.sched-root *::before,
+.sched-root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.sched-root img {
+  max-width: 100%;
+  display: block;
+}
+
+.sched-root button,
+.sched-root input,
+.sched-root textarea,
+.sched-root select {
+  font: inherit;
+  color: inherit;
+}
+
+.sched-root a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sched-root ul,
+.sched-root ol {
+  list-style: none;
+}

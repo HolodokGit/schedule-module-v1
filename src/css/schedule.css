@@ -1,0 +1,37 @@
+@import url('./reset.css');
+@import url('./variables.css');
+
+/* ШРИФТЫ ДЛЯ ВИДА! УДАЛИТЬ!*/
+
+@font-face {
+  font-family: 'Arimo';
+  src: url('../fonts/Arimo-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arimo';
+  src: url('../fonts/Arimo-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arimo';
+  src: url('../fonts/Arimo-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ШРИФТЫ ДЛЯ ВИДА! УДАЛИТЬ! */
+
+.sched-root {
+    width: 100%;
+    max-width: 960px; 
+    margin: 0 auto;
+    font-family: var(--sched-font-family);
+}

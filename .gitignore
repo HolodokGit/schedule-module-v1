@@ -1,0 +1,17 @@
+# Шрифты
+fonts/
+*.woff
+*.woff2
+*.ttf
+*.otf
+
+# ОС
+.DS_Store
+Thumbs.db
+
+# Редакторы
+.vscode/
+.idea/
+
+# Логи
+*.log

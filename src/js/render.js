@@ -123,7 +123,7 @@ function renderCards(container) {
 
         card.innerHTML = `
         <div class="sched-card-head">
-            <span class="sched-card-pair">${item.pair} </span>
+            <span class="sched-card-pair">${item.blockLabel} </span>
             <span class="sched-card-pair">${item.time} пара</span>
         </div>
         <h3 class="sched-card.subject">${item.subject}</h3>
