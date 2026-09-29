@@ -183,7 +183,7 @@ function renderCards(container) {
 
         card.innerHTML = `
         <div class="sched-card-head">
-            <span class="sched-card-time">${item.blockLabel} </span>
+            <span class="sched-card-pair">${item.blockLabel}</span>
             <span class="sched-card-time">${item.time}</span>
         </div>
         <h3 class="sched-card-subject">${item.subject}</h3>

@@ -162,3 +162,57 @@
     color: var(--sched-accent);
     border-bottom-color: var(--sched-accent);
 }
+
+.sched-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--sched-space-md);
+}
+
+.sched-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--sched-bg);
+    border: 1px solid var(--sched-border);
+    border-radius: var(--sched-radius-md);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.sched-card:hover {
+    box-shadow: var(--sched-shadow-md);
+    transform: translateY(-2px);
+}
+
+.sched-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--sched-space-sm) var(--sched-space-md);
+    background: var(--sched-accent-soft);
+    color: var(--sched-accent);
+    font-size: var(--sched-font-size-sm);
+    font-weight: var(--sched-font-weight-medium);
+}
+
+.sched-card-pair {
+    font-weight: var(--sched-font-weight-bold);
+}
+
+.sched-cart-time {
+    color: inherit;
+}
+
+.sched-card-subject {
+    padding: var(--sched-space-md) var(--sched-space-md) 0;
+    font-size: var(--sched-font-size-base);
+    font-weight: var(--sched-font-weight-bold);
+    color: var(--sched-text);
+    line-height: 1.3;
+}
+
+.sched-card-meta {
+    padding: var(--sched-space-xs) var(--sched-space-md) var(--sched-space-md);
+    font-size: var(--sched-font-size-sm);
+    color: var(--sched-text-muted);
+}

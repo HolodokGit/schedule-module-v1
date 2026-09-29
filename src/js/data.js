@@ -39,7 +39,7 @@ const TEACHERS = [
 const SCHEDULE = [
     {
         groupId: '11-i',
-        teacherId: 'Ivanov',
+        teacherId: 'ivanov',
         day: 'mon',
         blockOrder: 1,
         blockLabel: '1-2',
