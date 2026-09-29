@@ -134,3 +134,31 @@
     border-color: var(--sched-accent);
     color: #fff;
 }
+
+.sched-tabs {
+    display: flex;
+    gap: var(--sched-space-xs);
+    margin-bottom: var(--sched-space-lg);
+}
+
+.sched-tab {
+    padding: var(--sched-space-sm) var(--sched-space-md);
+    font-size: var(--sched-font-size-sm);
+    font-weight: var(--sched-font-weight-medium);
+    color: var(--sched-text-muted);
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 2px solid var(--sched-border);
+    margin-bottom: -2px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.sched-tab:hover {
+    color: var(--sched-text);
+}
+
+.sched-tab.is-active {
+    color: var(--sched-accent);
+    border-bottom-color: var(--sched-accent);
+}
