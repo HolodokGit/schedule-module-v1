@@ -181,12 +181,20 @@ function renderCards(container) {
         card.className = 'sched-card';
         card.dataset.subject = item.subject;
 
+        const teacher = TEACHERS.find(t => t.id === item.teacherId)
+        const group = GROUPS.find(g => g.id === item.groupId);
+
+        const secondLine = state.type === 'group'
+        ? (teacher ? teacher.name : '')
+        : (group ? group.name : '');
+
         card.innerHTML = `
         <div class="sched-card-head">
             <span class="sched-card-pair">${item.blockLabel}</span>
             <span class="sched-card-time">${item.time}</span>
         </div>
         <h3 class="sched-card-subject">${item.subject}</h3>
+        <p class="sched-card-teacher">${secondLine}</p>
         <p class="sched-card-meta">ауд. ${item.room}</p>
         `;
 

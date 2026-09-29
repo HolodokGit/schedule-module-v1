@@ -199,7 +199,7 @@
     font-weight: var(--sched-font-weight-bold);
 }
 
-.sched-cart-time {
+.sched-card-time {
     color: inherit;
 }
 
@@ -215,4 +215,11 @@
     padding: var(--sched-space-xs) var(--sched-space-md) var(--sched-space-md);
     font-size: var(--sched-font-size-sm);
     color: var(--sched-text-muted);
+}
+
+.sched-card-teacher {
+    padding: 0 var(--sched-space-md);
+    font-size: var(--sched-font-size-sm);
+    font-weight: var(--sched-font-weight-medium);
+    color: var(--sched-text);
 }
