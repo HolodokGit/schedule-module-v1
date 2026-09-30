@@ -46,6 +46,61 @@ app.get('/api/hello', (req, res) => {
     res.json({ message: 'Hello from server!' });
 });
 
+app.put('/api/schedule/:id', (req, res) => {
+  const { id } = req.params;
+  const {
+    groupId,
+    teacherId,
+    day,
+    blockOrder,
+    blockLabel,
+    time,
+    subject,
+    room,
+  } = req.body;
+
+  if (!groupId || !teacherId || !day || !blockOrder || !blockLabel || !time || !subject || !room) {
+    return res.status(400).json({ error: 'Все поля обязательны' });
+  }
+
+  const update = db.prepare(`
+    UPDATE schedule 
+    SET group_id = ?, teacher_id = ?, day = ?, block_order = ?, block_label = ?, time = ?, subject = ?, room = ?
+    WHERE id = ?
+  `);
+
+  const result = update.run(
+    groupId,
+    teacherId,
+    day,
+    blockOrder,
+    blockLabel,
+    time,
+    subject,
+    room,
+    id
+  );
+
+  if (result.changes === 0) {
+    return res.status(404).json({ error: 'Запись не найдена' });
+  }
+
+  res.json({ ok: true });
+});
+
+app.delete('/api/schedule/:id', (req, res) => {
+  const { id } = req.params;
+
+  const del = db.prepare('DELETE FROM schedule WHERE id = ?');
+  const result = del.run(id);
+
+  if (result.changes === 0) {
+    return res.status(404).json({ error: 'Запись не найдена' });
+  }
+
+  res.json({ ok: true });
+});
+
 app.listen(PORT, () => {
     console.log(`Server: http://localhost:${PORT}`);
 });
