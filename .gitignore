@@ -15,3 +15,14 @@ Thumbs.db
 
 # Логи
 *.log
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Окружение
+.env
+
+# ОС
+.DS_Store
+Thumbs.db
