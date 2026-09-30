@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админка — Расписание</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div class="admin-root">
+    <header class="admin-header">
+      <h1>Админка расписания</h1>
+      <a href="/" class="admin-link">← На сайт</a>
+    </header>
+
+    <!-- Форма добавления -->
+    <section class="admin-section">
+      <h2>Добавить пару</h2>
+      <form id="schedule-form" class="admin-form">
+        <label>
+          Группа
+          <select name="groupId" id="groupId" required></select>
+        </label>
+
+        <label>
+          Преподаватель
+          <select name="teacherId" id="teacherId" required></select>
+        </label>
+
+        <label>
+          День
+          <select name="day" required>
+            <option value="mon">Понедельник</option>
+            <option value="tue">Вторник</option>
+            <option value="wed">Среда</option>
+            <option value="thu">Четверг</option>
+            <option value="fri">Пятница</option>
+            <option value="sat">Суббота</option>
+          </select>
+        </label>
+
+        <label>
+          Номер блока
+          <input name="blockOrder" type="number" min="1" required>
+        </label>
+
+        <label>
+          Метка блока
+          <input name="blockLabel" type="text" placeholder="1-2" required>
+        </label>
+
+        <label>
+          Время
+          <input name="time" type="text" placeholder="8:30-10:00" required>
+        </label>
+
+        <label>
+          Предмет
+          <input name="subject" type="text" required>
+        </label>
+
+        <label>
+          Аудитория
+          <input name="room" type="text" required>
+        </label>
+
+        <button type="submit">Добавить</button>
+      </form>
+    </section>
+
+    <!-- Список пар -->
+    <section class="admin-section">
+      <h2>Список пар</h2>
+      <div id="schedule-list"></div>
+    </section>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
