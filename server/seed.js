@@ -79,3 +79,70 @@ const insertTeachers = db.transaction((items) => {
 
 insertTeachers(teachers);
 console.log(`Inserted ${teachers.length} teachers`);
+
+const schedule = [
+  {
+    group_id: '11-r',
+    teacher_id: 'ivanov',
+    day: 'mon',
+    block_order: 1,
+    block_label: '1-2',
+    time: '8:30-10:00',
+    subject: 'Математика',
+    room: '312',
+  },
+  {
+    group_id: '11-r',
+    teacher_id: 'petrov',
+    day: 'mon',
+    block_order: 2,
+    block_label: '3-4',
+    time: '10:10-11:40',
+    subject: 'Программирование',
+    room: '205',
+  },
+  {
+    group_id: '11-r',
+    teacher_id: 'ivanov',
+    day: 'tue',
+    block_order: 1,
+    block_label: '1-2',
+    time: '8:30-10:00',
+    subject: 'Математика',
+    room: '312',
+  },
+  {
+    group_id: '21-i',
+    teacher_id: 'petrov',
+    day: 'mon',
+    block_order: 1,
+    block_label: '1-2',
+    time: '8:30-10:00',
+    subject: 'Программирование',
+    room: '205',
+  },
+];
+
+const insertSchedule = db.prepare(`
+  INSERT INTO schedule (group_id, teacher_id, day, block_order, block_label, time, subject, room)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+`);
+
+const insertScheduleMany = db.transaction((items) => {
+  for (const item of items) {
+    insertSchedule.run(
+      item.group_id,
+      item.teacher_id,
+      item.day,
+      item.block_order,
+      item.block_label,
+      item.time,
+      item.subject,
+      item.room
+    );
+  }
+});
+
+insertScheduleMany(schedule);
+
+console.log(`Inserted ${schedule.length} schedule records`);

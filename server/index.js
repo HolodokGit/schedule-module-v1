@@ -17,6 +17,28 @@ app.get('/api/teachers', (req, res) => {
   res.json(teachers);
 });
 
+app.get('/api/schedule', (req, res) => {
+  const schedule = db.prepare(`
+    SELECT 
+      s.id,
+      s.group_id    AS groupId,
+      g.name        AS groupName,
+      s.teacher_id  AS teacherId,
+      t.name        AS teacherName,
+      s.day,
+      s.block_order AS blockOrder,
+      s.block_label AS blockLabel,
+      s.time,
+      s.subject,
+      s.room
+    FROM schedule s
+    LEFT JOIN groups g ON s.group_id = g.id
+    LEFT JOIN teachers t ON s.teacher_id = t.id
+    ORDER BY s.day, s.block_order
+  `).all();
+  res.json(schedule);
+});
+
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.json());
 
