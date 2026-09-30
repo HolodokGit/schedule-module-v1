@@ -15,21 +15,20 @@
       <a href="/" class="admin-link">← На сайт</a>
     </header>
 
-    <section class="admin-section">
+    <!-- Табы -->
+    <div class="admin-tabs">
+      <button class="admin-tab is-active" data-tab="schedule">Расписание</button>
+      <button class="admin-tab" data-tab="groups">Группы</button>
+      <button class="admin-tab" data-tab="teachers">Преподаватели</button>
+    </div>
+
+    <!-- Секция: Расписание -->
+    <section class="admin-section is-active" data-panel="schedule">
       <h2>Добавить пару</h2>
       <form id="schedule-form" class="admin-form">
-        <label>
-          Группа
-          <select name="groupId" id="groupId" required></select>
-        </label>
-
-        <label>
-          Преподаватель
-          <select name="teacherId" id="teacherId" required></select>
-        </label>
-
-        <label>
-          День
+        <label>Группа<select name="groupId" id="schedule-groupId" required></select></label>
+        <label>Преподаватель<select name="teacherId" id="schedule-teacherId" required></select></label>
+        <label>День
           <select name="day" required>
             <option value="mon">Понедельник</option>
             <option value="tue">Вторник</option>
@@ -39,39 +38,43 @@
             <option value="sat">Суббота</option>
           </select>
         </label>
-
-        <label>
-          Номер блока
-          <input name="blockOrder" type="number" min="1" required>
-        </label>
-
-        <label>
-          Метка блока
-          <input name="blockLabel" type="text" placeholder="1-2" required>
-        </label>
-
-        <label>
-          Время
-          <input name="time" type="text" placeholder="8:30-10:00" required>
-        </label>
-
-        <label>
-          Предмет
-          <input name="subject" type="text" required>
-        </label>
-
-        <label>
-          Аудитория
-          <input name="room" type="text" required>
-        </label>
-
+        <label>Номер блока<input name="blockOrder" type="number" min="1" required></label>
+        <label>Метка блока<input name="blockLabel" type="text" placeholder="1-2" required></label>
+        <label>Время<input name="time" type="text" placeholder="8:30-10:00" required></label>
+        <label>Предмет<input name="subject" type="text" required></label>
+        <label>Аудитория<input name="room" type="text" required></label>
         <button type="submit">Добавить</button>
       </form>
-    </section>
 
-    <section class="admin-section">
       <h2>Список пар</h2>
       <div id="schedule-list"></div>
+    </section>
+
+    <!-- Секция: Группы -->
+    <section class="admin-section" data-panel="groups">
+      <h2>Добавить группу</h2>
+      <form id="group-form" class="admin-form">
+        <label>ID (латиница, без пробелов)<input name="id" type="text" placeholder="11-xx" required></label>
+        <label>Название<input name="name" type="text" placeholder="11-ХХ" required></label>
+        <label>Курс<input name="course" type="number" min="1" max="4" required></label>
+        <button type="submit">Добавить</button>
+      </form>
+
+      <h2>Список групп</h2>
+      <div id="groups-list"></div>
+    </section>
+
+    <!-- Секция: Преподаватели -->
+    <section class="admin-section" data-panel="teachers">
+      <h2>Добавить преподавателя</h2>
+      <form id="teacher-form" class="admin-form">
+        <label>ID (латиница)<input name="id" type="text" placeholder="ivanov" required></label>
+        <label>ФИО<input name="name" type="text" placeholder="Иванов И.И." required></label>
+        <button type="submit">Добавить</button>
+      </form>
+
+      <h2>Список преподавателей</h2>
+      <div id="teachers-list"></div>
     </section>
   </div>
 
