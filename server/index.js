@@ -7,6 +7,9 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
+app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.json());
+
 app.get('/api/groups', (req, res) => {
     const groups = db.prepare('SELECT * FROM groups ORDER BY course, name').all();
     res.json(groups);
@@ -39,8 +42,11 @@ app.get('/api/schedule', (req, res) => {
   res.json(schedule);
 });
 
-app.use(express.static(path.join(__dirname, '../client')));
-app.use(express.json());
+
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/schedule.html'));
+});
 
 app.get('/api/hello', (req, res) => {
     res.json({ message: 'Hello from server!' });
@@ -86,6 +92,41 @@ app.put('/api/schedule/:id', (req, res) => {
   }
 
   res.json({ ok: true });
+});
+
+app.post('/api/schedule', (req, res) => {
+  const {
+    groupId,
+    teacherId,
+    day,
+    blockOrder,
+    blockLabel,
+    time,
+    subject,
+    room,
+  } = req.body;
+
+  if (!groupId || !teacherId || !day || !blockOrder || !blockLabel || !time || !subject || !room) {
+    return res.status(400).json({ error: 'Все поля обязательны' });
+  }
+
+  const insert = db.prepare(`
+    INSERT INTO schedule (group_id, teacher_id, day, block_order, block_label, time, subject, room)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  const result = insert.run(
+    groupId,
+    teacherId,
+    day,
+    blockOrder,
+    blockLabel,
+    time,
+    subject,
+    room
+  );
+
+  res.json({ id: result.lastInsertRowid });
 });
 
 app.delete('/api/schedule/:id', (req, res) => {
