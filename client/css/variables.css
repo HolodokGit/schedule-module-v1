@@ -1,4 +1,5 @@
-.sched-root {
+.sched-root,
+.admin-root {
     /* Цвета */
     --sched-bg: #ffffff;
     --sched-bg-soft: #f8fafc;

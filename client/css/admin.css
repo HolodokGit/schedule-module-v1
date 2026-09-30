@@ -1,131 +1,103 @@
-.admin-root {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px 16px;
-  font-family: system-ui, sans-serif;
+/* ============================================
+   ADMIN — стили админ-панели
+   Использует переменные из variables.css
+   ============================================ */
+
+/* --- Reset в скоупе --- */
+.admin-root,
+.admin-root *,
+.admin-root *::before,
+.admin-root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+/* --- Корень --- */
+.admin-root {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--sched-space-lg);
+  font-family: var(--sched-font-family);
+  font-size: var(--sched-font-size-base);
+  line-height: var(--sched-line-height);
+  color: var(--sched-text);
+  background: var(--sched-bg);
+  color-scheme: light;
+}
+
+/* --- Шапка --- */
 .admin-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: var(--sched-space-xl);
+  padding-bottom: var(--sched-space-md);
+  border-bottom: 1px solid var(--sched-border);
 }
 
 .admin-header h1 {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: var(--sched-font-size-xl);
+  font-weight: var(--sched-font-weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sched-space-md);
 }
 
 .admin-link {
-  color: #3b82f6;
+  background: none;
+  border: none;
+  color: var(--sched-accent);
+  font-size: var(--sched-font-size-sm);
+  font-weight: var(--sched-font-weight-medium);
+  cursor: pointer;
   text-decoration: none;
+  padding: 6px 10px;
+  border-radius: var(--sched-radius-sm);
+  transition: background 0.15s ease;
 }
 
-.admin-section {
-  margin-bottom: 32px;
+.admin-link:hover {
+  background: var(--sched-accent-soft);
 }
 
-.admin-section h2 {
-  font-size: 18px;
-  margin-bottom: 16px;
-}
-
-.admin-form {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-  padding: 20px;
-  background: #f8fafc;
-  border-radius: 12px;
-}
-
-.admin-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.admin-form input,
-.admin-form select {
-  padding: 8px 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.admin-form button {
-  grid-column: 1 / -1;
-  padding: 10px;
-  background: #3b82f6;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.admin-form button:hover {
-  background: #2563eb;
-}
-
-.admin-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-.admin-btn-delete {
-  padding: 6px 12px;
-  background: #ef4444;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-.admin-btn-delete:hover {
-  background: #dc2626;
-}
-
+/* --- Табы --- */
 .admin-tabs {
   display: flex;
-  gap: 4px;
-  border-bottom: 2px solid #e2e8f0;
-  margin-bottom: 24px;
+  gap: var(--sched-space-xs);
+  border-bottom: 2px solid var(--sched-border);
+  margin-bottom: var(--sched-space-xl);
 }
 
 .admin-tab {
-  padding: 10px 16px;
+  padding: var(--sched-space-sm) var(--sched-space-md);
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #64748b;
+  font-family: inherit;
+  font-size: var(--sched-font-size-sm);
+  font-weight: var(--sched-font-weight-medium);
+  color: var(--sched-text-muted);
   cursor: pointer;
   transition: all 0.15s ease;
+  white-space: nowrap;
 }
 
 .admin-tab:hover {
-  color: #0f172a;
+  color: var(--sched-text);
 }
 
 .admin-tab.is-active {
-  color: #3b82f6;
-  border-bottom-color: #3b82f6;
+  color: var(--sched-accent);
+  border-bottom-color: var(--sched-accent);
 }
 
+/* --- Секция --- */
 .admin-section {
   display: none;
 }
@@ -134,71 +106,215 @@
   display: block;
 }
 
+.admin-section h2 {
+  font-size: var(--sched-font-size-lg);
+  font-weight: var(--sched-font-weight-bold);
+  margin-bottom: var(--sched-space-md);
+  margin-top: var(--sched-space-lg);
+}
+
+.admin-section h2:first-child {
+  margin-top: 0;
+}
+
+/* --- Форма --- */
+.admin-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--sched-space-md);
+  padding: var(--sched-space-lg);
+  background: var(--sched-bg-soft);
+  border-radius: var(--sched-radius-md);
+  margin-bottom: var(--sched-space-xl);
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--sched-font-size-sm);
+  font-weight: var(--sched-font-weight-medium);
+  color: var(--sched-text);
+}
+
+.admin-form input,
+.admin-form select {
+  padding: 10px 12px;
+  border: 1px solid var(--sched-border);
+  border-radius: var(--sched-radius-sm);
+  font-family: inherit;
+  font-size: var(--sched-font-size-sm);
+  color: var(--sched-text);
+  background: var(--sched-bg);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.admin-form input:focus,
+.admin-form select:focus {
+  outline: none;
+  border-color: var(--sched-accent);
+  box-shadow: 0 0 0 3px var(--sched-accent-soft);
+}
+
+.admin-form button {
+  grid-column: 1 / -1;
+  padding: 12px;
+  background: var(--sched-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--sched-radius-sm);
+  font-family: inherit;
+  font-size: var(--sched-font-size-base);
+  font-weight: var(--sched-font-weight-bold);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.admin-form button:hover {
+  background: #2563eb;
+}
+
+/* --- Строки списка --- */
+.admin-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sched-space-md);
+  padding: var(--sched-space-md);
+  background: var(--sched-bg);
+  border: 1px solid var(--sched-border);
+  border-radius: var(--sched-radius-md);
+  margin-bottom: var(--sched-space-sm);
+  font-size: var(--sched-font-size-sm);
+  transition: border-color 0.15s ease;
+}
+
+.admin-row:hover {
+  border-color: var(--sched-accent);
+}
+
+.admin-row-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-row-info strong {
+  font-weight: var(--sched-font-weight-bold);
+  color: var(--sched-text);
+}
+
 .admin-row-info code {
-  background: #f1f5f9;
+  background: var(--sched-bg-soft);
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 12px;
+  color: var(--sched-text-muted);
 }
 
-/* Логин */
+/* --- Кнопка удаления --- */
+.admin-btn-delete {
+  padding: 6px 14px;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  border-radius: var(--sched-radius-sm);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: var(--sched-font-weight-medium);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.admin-btn-delete:hover {
+  background: #fecaca;
+}
+
+/* ============================================
+   ЛОГИН
+   ============================================ */
+
+.login-root,
+.login-root *,
+.login-root *::before,
+.login-root *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .login-root {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 16px;
-  font-family: system-ui, sans-serif;
-  background: #f8fafc;
+  padding: var(--sched-space-md);
+  font-family: var(--sched-font-family);
+  font-size: var(--sched-font-size-base);
+  color: var(--sched-text);
+  background: var(--sched-bg-soft);
+  color-scheme: light;
 }
 
 .login-card {
   width: 100%;
-  max-width: 360px;
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+  max-width: 380px;
+  background: var(--sched-bg);
+  border: 1px solid var(--sched-border);
+  border-radius: var(--sched-radius-lg);
+  padding: var(--sched-space-xl);
+  box-shadow: var(--sched-shadow-md);
 }
 
 .login-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 24px;
+  font-size: var(--sched-font-size-xl);
+  font-weight: var(--sched-font-weight-bold);
   text-align: center;
+  margin-bottom: var(--sched-space-lg);
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--sched-space-md);
 }
 
 .login-form label {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--sched-font-size-sm);
+  font-weight: var(--sched-font-weight-medium);
 }
 
 .login-form input {
   padding: 10px 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 15px;
+  border: 1px solid var(--sched-border);
+  border-radius: var(--sched-radius-sm);
+  font-family: inherit;
+  font-size: var(--sched-font-size-base);
+  color: var(--sched-text);
+  background: var(--sched-bg);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: var(--sched-accent);
+  box-shadow: 0 0 0 3px var(--sched-accent-soft);
 }
 
 .login-form button {
   padding: 12px;
-  background: #3b82f6;
+  background: var(--sched-accent);
   color: #fff;
   border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 600;
+  border-radius: var(--sched-radius-sm);
+  font-family: inherit;
+  font-size: var(--sched-font-size-base);
+  font-weight: var(--sched-font-weight-bold);
   cursor: pointer;
+  transition: background 0.15s ease;
 }
 
 .login-form button:hover {
@@ -206,28 +322,44 @@
 }
 
 .login-error {
-  color: #ef4444;
-  font-size: 14px;
+  color: #dc2626;
+  font-size: var(--sched-font-size-sm);
   text-align: center;
   min-height: 20px;
 }
 
-/* Кнопка выхода */
-.admin-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
+/* ============================================
+   АДАПТИВ
+   ============================================ */
 
-#logout-btn {
-  background: none;
-  border: none;
-  color: #3b82f6;
-  cursor: pointer;
-  font-size: 14px;
-  padding: 0;
-}
+@media (max-width: 640px) {
+  .admin-root {
+    padding: var(--sched-space-md);
+  }
 
-#logout-btn:hover {
-  text-decoration: underline;
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sched-space-md);
+  }
+
+  .admin-form {
+    grid-template-columns: 1fr;
+    padding: var(--sched-space-md);
+  }
+
+  .admin-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-btn-delete {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .admin-tab {
+    padding: var(--sched-space-sm);
+    font-size: 13px;
+  }
 }
