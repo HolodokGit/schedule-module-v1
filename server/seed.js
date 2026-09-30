@@ -54,5 +54,28 @@ const insertMany = db.transaction((items) => {
 });
 
 insertMany(groups);
-
 console.log(`Inserted ${groups.length} groups`);
+
+
+const teachers = [
+    { id: 'ivanov', name: 'Иванов И.И.' },
+    { id: 'petrov', name: 'Петров П.П.'},
+    { id: 'sergeev', name: 'Сергеев А.В.'},
+    { id: 'sergeeva', name: 'Сергеева Н.А.'},
+    { id: 'korneev', name: 'Корнеев Д.В.'},
+    { id: 'komarova', name: 'Комарова Е.В.'},
+    { id: 'kuznetsova', name: 'Кузнецова Л.В.'},
+];
+
+const insertTeacher = db.prepare(`
+  INSERT OR REPLACE INTO teachers (id, name) VALUES (?, ?)
+`);
+
+const insertTeachers = db.transaction((items) => {
+  for (const item of items) {
+    insertTeacher.run(item.id, item.name);
+  }
+});
+
+insertTeachers(teachers);
+console.log(`Inserted ${teachers.length} teachers`);

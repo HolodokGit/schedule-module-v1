@@ -12,6 +12,11 @@ app.get('/api/groups', (req, res) => {
     res.json(groups);
 });
 
+app.get('/api/teachers', (req, res) => {
+  const teachers = db.prepare('SELECT * FROM teachers ORDER BY name').all();
+  res.json(teachers);
+});
+
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.json());
 
