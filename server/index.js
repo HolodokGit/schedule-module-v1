@@ -1,5 +1,8 @@
 "use strict"
 
+require('dotenv').config();
+
+const crypto = require('crypto');
 const db = require('./db');
 const express = require('express');
 const path = require('path');
@@ -7,15 +10,42 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+const TOKENS = new Set();   // активные токены в памяти
+
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.json());
+
+app.post('/api/login', (req, res) => {
+  const { password } = req.body;
+
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ error: 'Неверный пароль' });
+  }
+
+  const token = crypto.randomBytes(32).toString('hex');
+  TOKENS.add(token);
+
+  res.json({ token });
+});
+
+function requireAuth(req, res, next) {
+  const header = req.headers.authorization || '';
+  const token = header.replace('Bearer ', '');
+
+  if (!TOKENS.has(token)) {
+    return res.status(401).json({ error: 'Не авторизован' });
+  }
+
+  next();
+}
 
 app.get('/api/groups', (req, res) => {
     const groups = db.prepare('SELECT * FROM groups ORDER BY course, name').all();
     res.json(groups);
 });
 
-app.post('/api/groups', (req, res) => {
+app.post('/api/groups', requireAuth, (req, res) => {
   const { id, name, course } = req.body;
 
   if (!id || !name || !course) {
@@ -33,7 +63,7 @@ app.post('/api/groups', (req, res) => {
   }
 });
 
-app.put('/api/groups/:id', (req, res) => {
+app.put('/api/groups/:id', requireAuth, (req, res) => {
   const { id } = req.params;
   const { name, course } = req.body;
 
@@ -53,7 +83,7 @@ app.put('/api/groups/:id', (req, res) => {
   res.json({ ok: true });
 });
 
-app.delete('/api/groups/:id', (req, res) => {
+app.delete('/api/groups/:id', requireAuth, (req, res) => {
   const { id } = req.params;
 
   // Проверка — есть ли пары у группы
@@ -77,7 +107,7 @@ app.get('/api/teachers', (req, res) => {
   res.json(teachers);
 });
 
-app.post('/api/teachers', (req, res) => {
+app.post('/api/teachers', requireAuth, (req, res) => {
   const { id, name } = req.body;
 
   if (!id || !name) {
@@ -93,7 +123,7 @@ app.post('/api/teachers', (req, res) => {
   }
 });
 
-app.put('/api/teachers/:id', (req, res) => {
+app.put('/api/teachers/:id', requireAuth, (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
 
@@ -111,7 +141,7 @@ app.put('/api/teachers/:id', (req, res) => {
   res.json({ ok: true });
 });
 
-app.delete('/api/teachers/:id', (req, res) => {
+app.delete('/api/teachers/:id', requireAuth, (req, res) => {
   const { id } = req.params;
 
   const count = db.prepare('SELECT COUNT(*) AS c FROM schedule WHERE teacher_id = ?').get(id);
@@ -161,7 +191,7 @@ app.get('/api/hello', (req, res) => {
     res.json({ message: 'Hello from server!' });
 });
 
-app.put('/api/schedule/:id', (req, res) => {
+app.put('/api/schedule/:id', requireAuth, (req, res) => {
   const { id } = req.params;
   const {
     groupId,
@@ -203,7 +233,7 @@ app.put('/api/schedule/:id', (req, res) => {
   res.json({ ok: true });
 });
 
-app.post('/api/schedule', (req, res) => {
+app.post('/api/schedule', requireAuth, (req, res) => {
   const {
     groupId,
     teacherId,
@@ -238,7 +268,7 @@ app.post('/api/schedule', (req, res) => {
   res.json({ id: result.lastInsertRowid });
 });
 
-app.delete('/api/schedule/:id', (req, res) => {
+app.delete('/api/schedule/:id', requireAuth, (req, res) => {
   const { id } = req.params;
 
   const del = db.prepare('DELETE FROM schedule WHERE id = ?');

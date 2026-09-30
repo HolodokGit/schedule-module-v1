@@ -2,6 +2,38 @@
 
 const API = '/api';
 
+// ============ АВТОРИЗАЦИЯ ============
+function getToken() {
+  return localStorage.getItem('adminToken');
+}
+
+function logout() {
+  localStorage.removeItem('adminToken');
+  window.location.href = '/login.html';
+}
+
+async function apiFetch(url, options = {}) {
+  const token = getToken();
+  const headers = {
+    ...(options.headers || {}),
+    'Authorization': `Bearer ${token}`,
+  };
+
+  const res = await fetch(url, { ...options, headers });
+
+  if (res.status === 401) {
+    logout();
+    throw new Error('Не авторизован');
+  }
+
+  return res;
+}
+
+// Проверка при загрузке
+if (!getToken()) {
+  window.location.href = '/login.html';
+}
+
 // ============ ТАБЫ ============
 function initTabs() {
   const tabs = document.querySelectorAll('.admin-tab');
@@ -75,11 +107,13 @@ function initScheduleForm() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
-    await fetch(`${API}/schedule`, {
+
+    await apiFetch(`${API}/schedule`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
+
     form.reset();
     await loadSchedule();
   });
@@ -111,7 +145,7 @@ function initGroupForm() {
     const data = Object.fromEntries(new FormData(form));
     data.course = parseInt(data.course, 10);
 
-    const res = await fetch(`${API}/groups`, {
+    const res = await apiFetch(`${API}/groups`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -154,7 +188,7 @@ function initTeacherForm() {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
 
-    const res = await fetch(`${API}/teachers`, {
+    const res = await apiFetch(`${API}/teachers`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -181,7 +215,7 @@ function initDelete() {
     const { type, id } = btn.dataset;
     if (!confirm(`Удалить ${id}?`)) return;
 
-    const res = await fetch(`${API}/${type}/${id}`, { method: 'DELETE' });
+    const res = await apiFetch(`${API}/${type}/${id}`, { method: 'DELETE' });
 
     if (!res.ok) {
       const err = await res.json();
@@ -201,6 +235,12 @@ function initDelete() {
   });
 }
 
+// ============ LOGOUT BUTTON ============
+function initLogout() {
+  const btn = document.querySelector('#logout-btn');
+  if (btn) btn.addEventListener('click', logout);
+}
+
 // ============ INIT ============
 async function init() {
   initTabs();
@@ -212,6 +252,7 @@ async function init() {
   initGroupForm();
   initTeacherForm();
   initDelete();
+  initLogout();
 }
 
 init();
