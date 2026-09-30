@@ -5,3 +5,7 @@ const state = {
     selectedId: null,
     activeDay: 'mon',
 }
+
+let GROUPS = [];
+let TEACHERS = [];
+let SCHEDULE = [];

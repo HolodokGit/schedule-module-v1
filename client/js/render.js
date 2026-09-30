@@ -22,8 +22,6 @@ function renderTypes() {
     });
 }
 
-renderTypes();
-
 // Рендер Групп(с разбивкой по курсам) и преподавателей(которые запускают свою функцию)
 function renderList() {
     const container = document.querySelector('[data-slot="list"]');
@@ -92,8 +90,6 @@ function renderFlatList(container, items) {
     })
     container.appendChild(grid);
 }
-
-renderList();
 
 // Событие onclick запускающее функции рендера Групп и Преподаватедлей
 function initTypeClicks() {
