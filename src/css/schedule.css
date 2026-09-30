@@ -115,6 +115,10 @@
     margin-top: var(--sched-space-lg);
 }
 
+.sched-list--teachers .sched-course-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
 .sched-item {
     padding: var(--sched-space-sm) var(--sched-space-md);
     border: 1px solid var(--sched-border);

@@ -30,6 +30,8 @@ function renderList() {
 
     container.innerHTML = '';
 
+    container.classList.toggle('sched-list--teachers', state.type === 'teacher');
+    
     const items = state.type === 'group' ? GROUPS : TEACHERS;
 
     if(state.type === 'teacher') {
